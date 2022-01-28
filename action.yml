@@ -1,0 +1,95 @@
+name: 'Download Legends of Runeterra Data Dragon' 
+description: 'Downloads the Legends of Runeterra Data Dragon.'
+author: 'Mikael Dúi Bolinder'
+branding:
+  icon: 'download'  
+  color: 'yellow'
+inputs:
+  version:
+    description: 'A Data Dragon version.'
+    required: false
+    type: string
+  directory:
+    description: 'The directory where the data dragon will be downloaded.'
+    required: false
+    type: string
+    default: './'
+runs:
+  using: "composite"
+  steps:  
+    - name: Download Legends of Runeterra Data Dragon
+      id: data-dragon
+      uses: actions/github-script@v3
+      with:
+        script: |
+          var version = "${{ inputs.version }}"
+          var directory = "${{ inputs.directory }}"
+
+          const https = require('https');             
+          const fs = require('fs');
+          
+          getLatestVersion(downloadDataDragon);
+          
+          function get(path, callback) {
+            var options = {
+              host: 'dd.b.pvp.net',
+              path: path,
+              headers: {'User-Agent': 'GitHubActions/prod DownloadLorDataDragon/1 (+https://github.com/mikaeldui/download-legends-of-runeterra-data-dragon)'}
+            };
+            
+            return https.get(options, callback);
+          }
+
+          function getLatestVersion(callback) {
+            downloadDataDragon("latest", "core");
+            downloadDataDragon("latest", "set1");
+            downloadDataDragon("latest", "set1");
+            downloadDataDragon("latest", "set3");
+            downloadDataDragon("latest", "set4");
+          }
+
+          function downloadDataDragon(version, bundle, locale) {
+            var file = fs.createWriteStream(folder + bundle + '.zip'); // TODO: Locale
+            const url = '/' + version + '/' + bundle + '-' + locale ?? "en_us" + '.zip'; //TODO: real path merge
+            get(url, function(res) {
+                res.pipe(file);                
+                httpsDownloadStatus(res);
+                res.on('end', function () {
+                  if (res.statusCode === 200) {
+                    file.close();                
+                    core.info('\u001b[32m' + url + ' downloaded as ' + path)
+                  } else {
+                    core.setFailed(url + ' status: ' + res.statusCode);
+                  }
+                });
+              }).on('error', function (err) {
+                core.setFailed('Error trying to download ' + url + ': ' + err)
+              });
+          }
+          
+          function httpsDownloadStatus(res) {
+            var total_bytes = parseInt(res.headers['content-length'], 10);
+            var received_bytes = 0;
+            var percent = -1;
+            core.info('\u001b[34mData Dragon size: ' + formatBytes(total_bytes))
+            res.on('data', function(chunk) {
+              received_bytes += chunk.length;                    
+              var newPercent = Math.round((100.0 * received_bytes / total_bytes) / 10) * 10;
+              if (percent !== newPercent) {              
+                percent = newPercent;
+                core.info('\u001b[34mData Dragon Download Progress: ' + formatBytes(received_bytes) + "/" + formatBytes(total_bytes) + " (" + percent + "%)")
+              }
+            })            
+            
+            function formatBytes(bytes, decimals = 2) {
+              if (bytes === 0) return '0 Bytes';
+
+              const k = 1024;
+              const dm = decimals < 0 ? 0 : decimals;
+              const sizes = ['Bytes', 'KB', 'MB', 'GB', 'TB', 'PB', 'EB', 'ZB', 'YB'];
+
+              const i = Math.floor(Math.log(bytes) / Math.log(k));
+
+              return parseFloat((bytes / Math.pow(k, i)).toFixed(dm)) + ' ' + sizes[i];
+            }
+          }
