@@ -42,7 +42,7 @@ Download specific bundles of the Data Dragon. Example values: `core`, `lite`, `s
     - name: Download Data Dragon version 1.0.0
       uses: mikaeldui/download-legends-of-runeterra-data-dragon@v1
       with:
-        bundles: core lite # Download core and all light sets.
+        bundles: core lite # Download core and all lite sets.
   
 ## `directory`
 You can specify the directory where the data dragon files should be downloaded.
