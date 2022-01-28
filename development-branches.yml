@@ -1,0 +1,31 @@
+name: Development Branches
+
+on:
+  push:
+  #  branches-ignore: [ 'main'] 
+  pull_request:
+  workflow_dispatch:
+jobs:
+  test:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v2      
+      - name: Download the latest Data Dragon
+        id: data-dragon
+        uses: ./
+        
+      - name: Test result
+        uses: actions/github-script@v5
+        with:
+          script: |
+            const fs = require('fs');
+            fileExists('core.zip', () => core.setFailed('No Data Dragon downloaded!')));
+
+            function fileExists(path, error) {
+              fs.access(path, fs.F_OK, (err) => {
+                if (err) {
+                  error(err);
+                  return
+                }
+              });
+            }
