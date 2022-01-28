@@ -37,7 +37,7 @@ You can specify the locale to download. The default is `en_us`.
         locale: en-US
         
 ### `bundles`
-Download specific bundles of the Data Dragon. Example values: `core`, `lite`, `set1`, `core lite`.
+Download specific bundles of the Data Dragon. Example values: `core`, `lite`, `set1`, `set1-lite`, `core lite`.
 
     - name: Download Data Dragon version 1.0.0
       uses: mikaeldui/download-legends-of-runeterra-data-dragon@v1
