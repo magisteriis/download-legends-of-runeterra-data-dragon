@@ -54,7 +54,7 @@ runs:
             var file = fs.createWriteStream(path); // TODO: Locale
             get(url, function(res) {
                 res.pipe(file);                
-                httpsDownloadStatus(res);
+                httpsDownloadStatus(res, bundle);
                 res.on('end', function () {
                   if (res.statusCode === 200) {
                     file.close();                
@@ -68,17 +68,17 @@ runs:
               });
           }
           
-          function httpsDownloadStatus(res) {
+          function httpsDownloadStatus(res, bundle) {
             var total_bytes = parseInt(res.headers['content-length'], 10);
             var received_bytes = 0;
             var percent = -1;
-            core.info('\u001b[34mData Dragon size: ' + formatBytes(total_bytes))
+            core.info(`\u001b[34mData Dragon ${bundle} size: ${formatBytes(total_bytes)}`)
             res.on('data', function(chunk) {
               received_bytes += chunk.length;                    
               var newPercent = Math.round((100.0 * received_bytes / total_bytes) / 10) * 10;
               if (percent !== newPercent) {              
                 percent = newPercent;
-                core.info('\u001b[34mData Dragon Download Progress: ' + formatBytes(received_bytes) + "/" + formatBytes(total_bytes) + " (" + percent + "%)")
+                core.info(`\u001b[34mData Dragon ${bundle} Download Progress: ${formatBytes(received_bytes)}/${formatBytes(total_bytes)} (${percent}%)`)
               }
             })            
             
