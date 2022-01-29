@@ -1,4 +1,5 @@
 # Download Legends of Runeterra Data Dragon
+[![Daily Test (@v1)](https://github.com/mikaeldui/download-legends-of-runeterra-data-dragon/actions/workflows/daily-test.v1.yml/badge.svg)](https://github.com/mikaeldui/download-legends-of-runeterra-data-dragon/actions/workflows/daily-test.v1.yml)
 
 ![image](https://user-images.githubusercontent.com/3706841/151632989-01f5ede8-b056-4e11-a5f7-dc40c9ffe237.png)
 
