@@ -47,7 +47,7 @@ Download specific bundles of the Data Dragon. Example values: `core`, `sets`,`se
       with:
         bundles: core sets-lite # Download core and all lite sets.
 
-## `directory`
+### `directory`
 You can specify the directory where the data dragon files should be downloaded.
 
     - name: Download Data Dragon for en-us
