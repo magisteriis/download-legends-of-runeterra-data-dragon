@@ -43,7 +43,7 @@ runs:
           function getLatestVersion(callback) {
             downloadDataDragon("latest", "core");
             downloadDataDragon("latest", "set1");
-            downloadDataDragon("latest", "set1");
+            downloadDataDragon("latest", "set2");
             downloadDataDragon("latest", "set3");
             downloadDataDragon("latest", "set4");
           }
