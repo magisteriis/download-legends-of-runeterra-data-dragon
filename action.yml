@@ -9,6 +9,12 @@ inputs:
     description: 'A Data Dragon version.'
     required: false
     type: string
+    default: latest
+  locale:
+    description: 'A Data Dragon locale.'
+    required: false
+    type: string
+    default: en_us
   directory:
     description: 'The directory where the data dragon will be downloaded.'
     required: false
@@ -22,13 +28,18 @@ runs:
       uses: actions/github-script@v3
       with:
         script: |
-          var version = "${{ inputs.version }}"
+          var version = "${{ inputs.version }}".replace(".", "_")
+          var locale = "${{ inputs.locale }}".toLowerCase().replace("-", "_")
           var directory = "${{ inputs.directory }}"
 
           const https = require('https');             
           const fs = require('fs');
           
-          getLatestVersion(downloadDataDragon);
+          downloadDataDragon("core");
+          downloadDataDragon("set1");
+          downloadDataDragon("set2");
+          downloadDataDragon("set3");
+          downloadDataDragon("set4");
           
           function get(path, callback) {
             var options = {
@@ -40,17 +51,9 @@ runs:
             return https.get(options, callback);
           }
 
-          function getLatestVersion(callback) {
-            downloadDataDragon("latest", "core");
-            downloadDataDragon("latest", "set1");
-            downloadDataDragon("latest", "set2");
-            downloadDataDragon("latest", "set3");
-            downloadDataDragon("latest", "set4");
-          }
-
-          function downloadDataDragon(version, bundle, locale) {
+          function downloadDataDragon(bundle) {
             const path = directory + bundle + '.zip';            
-            const url = '/' + version.replace(".", "_") + '/' + bundle + '-' + (locale || "en_us").toLowerCase().replace("-", "_") + '.zip'; //TODO: real path merge
+            const url = '/' + version + '/' + bundle + '-' + locale + '.zip'; //TODO: real path merge
             var file = fs.createWriteStream(path); // TODO: Locale
             get(url, function(res) {
                 res.pipe(file);                
