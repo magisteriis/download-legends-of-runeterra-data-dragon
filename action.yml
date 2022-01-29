@@ -49,7 +49,7 @@ runs:
           }
 
           function downloadDataDragon(version, bundle, locale) {
-            var file = fs.createWriteStream(folder + bundle + '.zip'); // TODO: Locale
+            var file = fs.createWriteStream(directory + bundle + '.zip'); // TODO: Locale
             const url = '/' + version + '/' + bundle + '-' + (locale || "en_us") + '.zip'; //TODO: real path merge
             get(url, function(res) {
                 res.pipe(file);                
