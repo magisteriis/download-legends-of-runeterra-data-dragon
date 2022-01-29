@@ -1,0 +1,33 @@
+name: Daily Test (@v1)
+
+on:
+  schedule:
+    - cron: '0 11 * * *'
+  workflow_dispatch:
+
+jobs:
+  test:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Download the latest Legends of Runeterra Data Dragon
+        id: dragon-tail
+        uses: mikaeldui/download-legends-of-runeterra-data-dragon@v1
+        
+      - name: Test result
+        uses: actions/github-script@v5
+        with:
+          script: |
+            const fs = require('fs');
+            fileExists('core.zip', () => core.setFailed('No Data Dragon core downloaded!'));            
+            fileExists('set1.zip', () => core.setFailed('No Data Dragon set1 downloaded!'));
+            fileExists('set2.zip', () => core.setFailed('No Data Dragon set2 downloaded!'));
+            fileExists('set3.zip', () => core.setFailed('No Data Dragon set3 downloaded!'));
+            fileExists('set4.zip', () => core.setFailed('No Data Dragon set4 downloaded!'));
+            function fileExists(path, error) {
+              fs.access(path, fs.F_OK, (err) => {
+                if (err) {
+                  error(err);
+                  return
+                }
+              });
+            }
