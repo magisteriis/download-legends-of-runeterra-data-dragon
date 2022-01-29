@@ -15,6 +15,11 @@ inputs:
     required: false
     type: string
     default: en_us
+  bundles:
+    description: 'The Data Dragon bundles.'
+    required: false
+    type: string
+    default: core sets
   directory:
     description: 'The directory where the data dragon will be downloaded.'
     required: false
@@ -28,18 +33,22 @@ runs:
       uses: actions/github-script@v3
       with:
         script: |
+          var sets = ["set1", "set2", "set3", "set4"]        
           var version = "${{ inputs.version }}".replace(".", "_")
           var locale = "${{ inputs.locale }}".toLowerCase().replace("-", "_")
           var directory = "${{ inputs.directory }}"
+          var bundles = "${{ inputs.bundles }}".split(" ")
+          
+          if (bundles.indexOf('sets') !== -1)
+            bundles = bundles.filter(b => b != 'sets').concat(sets)
+          
+          if (bundles.indexOf('sets-lite') !== -1)
+            bundles = bundles.filter(b => b != 'sets-lite').concat(sets.map(s => s + 'lite'))
 
           const https = require('https');             
           const fs = require('fs');
           
-          downloadDataDragon("core");
-          downloadDataDragon("set1");
-          downloadDataDragon("set2");
-          downloadDataDragon("set3");
-          downloadDataDragon("set4");
+          bundles.forEach(b => downloadDataDragon(b))
           
           function get(path, callback) {
             var options = {
