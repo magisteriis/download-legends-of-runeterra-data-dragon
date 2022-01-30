@@ -5,8 +5,6 @@
 
 A GitHub Action for downloading the Legends of Runeterra Data Dragon.
 
-Work-in-progress.
-
 > Legends of Runeterra Data Dragon (not to be confused with League of Legends Data Dragon) is the name of the static data product that will host both game assets and data for community use in media or product development. Assets and data are made available over the internet in the format described below, and are updated in tandem with game releases so the community can update their products with the latest and greatest data. Legends of Runeterra static data is split into two bundles; core bundles and set bundles. - [Riot Developer Portal](https://developer.riotgames.com/docs/lor#data-dragon)
 
 ## Example
