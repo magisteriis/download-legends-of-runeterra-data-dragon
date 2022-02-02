@@ -1,5 +1,5 @@
 # Download Legends of Runeterra Data Dragon
-[![Daily Test (@v1)](https://github.com/mikaeldui/download-legends-of-runeterra-data-dragon/actions/workflows/daily-test.v1.yml/badge.svg)](https://github.com/mikaeldui/download-legends-of-runeterra-data-dragon/actions/workflows/daily-test.v1.yml)
+[![Daily Test (@v1)](https://github.com/magisteriis/download-legends-of-runeterra-data-dragon/actions/workflows/daily-test.v1.yml/badge.svg)](https://github.com/magisteriis/download-legends-of-runeterra-data-dragon/actions/workflows/daily-test.v1.yml)
 
 ![image](https://user-images.githubusercontent.com/3706841/151632989-01f5ede8-b056-4e11-a5f7-dc40c9ffe237.png)
 
@@ -11,7 +11,7 @@ A GitHub Action for downloading the Legends of Runeterra Data Dragon.
 Download the latest version as `./core.zip`, `./set1.zip`, `./set1.zip`, `./set3.zip` and `./set4.zip`.
 
     - name: Download Data Dragon
-      uses: mikaeldui/download-legends-of-runeterra-data-dragon@v1
+      uses: magisteriis/download-legends-of-runeterra-data-dragon@v1
       
     - name: Extract Data Dragon
       run: unzip '*.zip'
@@ -23,7 +23,7 @@ Download a specific version of the Data Dragon.
 *The action will replace `.` with `_` in the URL.*
 
     - name: Download Data Dragon version 1.0.0
-      uses: mikaeldui/download-legends-of-runeterra-data-dragon@v1
+      uses: magisteriis/download-legends-of-runeterra-data-dragon@v1
       with:
         version: 1.0.0
         
@@ -33,7 +33,7 @@ You can specify the locale to download. The default is `en_us`.
 *The action will lowercase the locale and replace `-` with `_` in the URL.*
 
     - name: Download Data Dragon for en-us
-      uses: mikaeldui/download-legends-of-runeterra-data-dragon@v1
+      uses: magisteriis/download-legends-of-runeterra-data-dragon@v1
       with:
         locale: en-US
 
@@ -41,7 +41,7 @@ You can specify the locale to download. The default is `en_us`.
 Download specific bundles of the Data Dragon. Example values: `core`, `sets`,`sets-lite`, `set1`, `set1-lite`, `core lite set1`, `core set1 set2-lite`.
 
     - name: Download Data Dragon core and lite sets
-      uses: mikaeldui/download-legends-of-runeterra-data-dragon@v1
+      uses: magisteriis/download-legends-of-runeterra-data-dragon@v1
       with:
         bundles: core sets-lite # Download core and all lite sets.
 
@@ -49,7 +49,7 @@ Download specific bundles of the Data Dragon. Example values: `core`, `sets`,`se
 You can specify the directory where the data dragon files should be downloaded.
 
     - name: Download Data Dragon for en-us
-      uses: mikaeldui/download-legends-of-runeterra-data-dragon@v1
+      uses: magisteriis/download-legends-of-runeterra-data-dragon@v1
       with:
         directory: ./data-dragon
         
