@@ -30,7 +30,7 @@ runs:
   steps:  
     - name: Download Legends of Runeterra Data Dragon
       id: data-dragon
-      uses: actions/github-script@v3
+      uses: actions/github-script@v6
       with:
         script: |
           var sets = ["set1", "set2", "set3", "set4"]        
