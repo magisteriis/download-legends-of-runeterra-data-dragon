@@ -33,7 +33,7 @@ runs:
       uses: actions/github-script@v6
       with:
         script: |
-          var sets = ["set1", "set2", "set3", "set4"]        
+          var sets = ["set1", "set2", "set3", "set4", "set5"]        
           var version = "${{ inputs.version }}".replace(".", "_")
           var locale = "${{ inputs.locale }}".toLowerCase().replace("-", "_")
           var directory = "${{ inputs.directory }}"
